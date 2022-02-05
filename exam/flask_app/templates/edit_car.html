@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <title>Car Edit</title>
+</head>
+<body>
+    <div class="navbar">
+        <h1 class="flex-2">Car Database</h1>
+        <a href="/dashboard" class="flex-1"><h2>Dashboard</h2></a>
+        <form class="loggout" action="/logout" method="post" >
+            <input class="loggout-b" type="submit" value="loggout">
+        </form>
+    </div>
+    <h1>Edit {{car.model}}</h1>
+    <form action="/update/car" method="POST">
+    <h1>Price:</h1>
+    <input type="number" value="{{car.price}}" name="price" value="car.price" min=1>
+    <h2>Model: </h2>
+    <input type="text" name="model" value="{{car.model}}">
+    <h2>Make: </h2>
+    <input type="text" name="make" value="{{car.make}}">
+    <h2>Year: </h2>
+    <input type="number" name="year" value="{{car.year}}" min=1 max=2022>
+    <h2>Description:</h2> 
+    <input size="50" value="{{car.description}}" name="description"></textarea>
+    <input type="hidden" name="id" value={{car.id}}>
+    <input type="submit" value="update">
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <title>Cars</title>
+</head>
+<body>
+    <div class="navbar">
+        <h1 class="flex-2">Welcome to Car Dealz, {{user.first_name}}!!!</h1>
+        
+        <form class="loggout" action="/logout" method="post" >
+            <input class="loggout-b" type="submit" value="loggout">
+        </form>
+    </div>
+    {% with messages = get_flashed_messages() %}     
+    {% if messages %}                            
+        {% for message in messages %}          
+            <p class="red">{{message}}</p>                  
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+    <table>
+        <tr>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Seller</th>
+            <th>Actions</th>
+        </tr>
+        {% for p in car_many %}
+        <tr>
+            <td>{{p.car.model}}</td>
+            <td>{{p.car.year}}</td>
+            <td>{{p.first_name}}</td>
+            {% if p.car.user_id == session.user_id %}
+            <td><a href="/edit/{{p.car.id}}">edit |</a><a href="/delete/{{p.car.id}}"> delete</a></td>
+            {% else %}
+            <td><a href="/view/{{p.car.id}}">view</a></td>
+            {% endif %}
+            
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/create/car" class="text-center"><h2>Add Car</h2></a>
+</body>
+</html>

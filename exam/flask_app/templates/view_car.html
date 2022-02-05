@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <title>Car Database</title>
+</head>
+<body>
+    <div class="navbar">
+        <h1 class="flex-2">Car Database</h1>
+        <a href="/dashboard" class="flex-1"><h2>Dashboard</h2></a>
+        <form class="loggout" action="/logout" method="post" >
+            <input class="loggout-b" type="submit" value="loggout">
+        </form>
+    </div>
+    <h1 style="font-weight: bold;">${{car.price}}</h1>
+    <h2>Model: {{car.model}}</h2>
+    <h2>Make: {{car.make}}</h2>
+    <h2>Year: {{car.year}}</h2>
+    <h2>Description: </h2><h3>{{car.description}}</h3>
+    <br>
+    <h3>Seller: {{user.first_name}} {{user.last_name}}</h3>
+    <form action="/delete/{{car.id}}">
+        <input type="submit" value="Purchase">
+    </form>
+</body>
+</html>

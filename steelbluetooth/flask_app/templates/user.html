@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <title>Steel Bluetooth {{username}}</title>
+</head>
+<body>
+    <div class="m-container">
+        <div class="navbar">
+            <h1 class="flex-3" style="margin-left: 20px">Steel Bluetooth</h1>
+            <h2 class="navbart">FAQ</h2>
+            <h2 class="navbart">Settings</h2>
+            <form action="/logout" method="post" class="navbart">
+               <input type="submit" value="Log Out" class="logout">
+            </form>
+        </div>
+        <h4>Share the username and password to share access to bluetooth speaker (Only for trusted friends)</h4>
+        <form action="/addvideo" method="post" class="addvideo">
+        <input type="text" name="addvideo">
+        <input type="submit" value="Add Video">
+        </form>
+        <div id="player"></div>
+        <h1 id="queuestatus"></h1>
+        <div id="test" onclick="PlayerState()">Test</div>
+        <div onclick="DeleteVideo()">Test2</div>
+    </div>
+
+{% block javascript %}
+    <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '200', // change height and width to 0 to make player invisible 
+          width: '200',
+          videoId: '{{VideoID}}',
+          playerVars: {
+            'playsinline': 1
+          },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video 
+      function onPlayerStateChange(event) {
+        if (player.getPlayerState() == 0) {
+            document.querySelector("#queuestatus").innerHTML = "Nothing Playing";
+        }
+        else {
+            document.querySelector("#queuestatus").innerHTML = "";
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+      function PlayerState()
+      {
+        document.querySelector("#test").innerHTML = player.getVideoUrl()
+      }
+    </script>
+{% endblock %}
+</body>
+</html>

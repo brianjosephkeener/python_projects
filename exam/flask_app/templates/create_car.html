@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <title>Car Sale</title>
+</head>
+<body>
+    <div class="navbar">
+        <h1 class="flex-2">Put Car Up for Sale</h1>
+        <a href="/dashboard" class="flex-1"><h2>Dashboard</h2></a>
+        <form class="loggout" action="/logout" method="post" >
+            <input class="loggout-b" type="submit" value="loggout">
+        </form>
+    </div>
+    {% with messages = get_flashed_messages() %}     
+    {% if messages %}                         
+        {% for message in messages %}          
+            <p class="red">{{message}}</p>                  
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+    <form action="/create_car" method="post" class="flex-column">
+        <h2>Price: </h2><input type="number" name="price" min="1">
+        <h2>Model:</h2><input type="text" name="model">
+        <h2>Make:</h2><input type="text" name="make">
+        <h2>Year:</h2><input type="number" name="year" min="1" max="2021">
+        <h2>Description</h2><textarea name="description" cols="30" rows="10"></textarea>
+        <input type="submit" value="submit">
+    </form>
+</html>

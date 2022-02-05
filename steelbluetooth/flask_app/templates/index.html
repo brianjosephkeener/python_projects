@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <title>Steel Bluetooth Home</title>
+</head>
+<body>
+    <div class="m-container">
+        <div class="navbar">
+            <h1 class="flex-3" style="margin-left: 20px">Steel Bluetooth</h1>
+            <h2 class="navbart">FAQ</h2>
+            <h2 class="navbart">Settings</h2>
+            {% if register == 0 %}
+            <a href="/registerpop" class="navbart"><h2 >Register</h2></a>
+            {% endif %}
+            {% if login == 0 %}
+            <a href="/loginpop" class="navbart"><h2 >Login</h2></a>
+            {% endif %}
+        </div>
+    
+    {% if register == 1 %} 
+    <div class="register">
+        {% with messages = get_flashed_messages(category_filter=['register error']) %}    
+        {% if messages %}                          
+            {% for message in messages %}           
+                <p class="red">{{message}}</p>                   
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+        <h1>Register</h1>
+        <form action="/register" method="POST">
+        <h2>Username: </h2><input type="text" name="username">
+        <h2>Password: </h2><input type="password" name="password">
+        <h2>Re-Enter Password: </h2><input type="password" name="passwordcheck">
+        <input type="submit" value="submit">
+        </form>
+    </div>
+    {% endif %}
+    {% if login == 1 %}
+    <div class="register">
+    {% with messages = get_flashed_messages(category_filter=['email/pass error']) %}     
+    {% if messages %}                            
+        {% for message in messages %}           
+            <p class="red">{{message}}</p>                   
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+    <h1>Login</h1>
+    <form action="/login" method="POST">
+        <h2>Username: </h2>
+        <input type="text" name="username">
+        <h2>Password: </h2>
+        <input type="password" name="password">
+        <input type="submit" value="submit">
+    </form>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <title>User</title>
+</head>
+<body>
+    <div class="navbar">
+        <h1 class="flex-2">Recipe Database</h1>
+        <a href="/create/recipe" class="flex-1"><h2>Create</h2></a>
+        <form class="loggout" action="/logout" method="post" >
+            <input class="loggout-b" type="submit" value="loggout">
+        </form>
+    </div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Under 30 Minutes?</th>
+            <th>Actions</th>
+        </tr>
+        {% for recipe in recipes %}
+        <tr>
+            <td>{{recipe.name}}</td> <!-- replace with recipe data-->
+            <td>{{recipe.under_30}}</td>
+            <td>
+                <form action="/view/{{recipe.id}}">
+                    <input type="submit" value="view">
+                </form>
+                <form action="/edit/{{recipe.id}}">
+                    <input type="submit" value="edit">
+                </form>
+                <form action="/delete/{{recipe.id}}" method="POST">
+                    <input type="submit" value="delete">
+                </form>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
