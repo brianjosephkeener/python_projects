@@ -1,0 +1,5 @@
+1. mkdir for project folder
+
+2. pipenv install flask
+
+3. (activate virtual environment)  pipenv shell
